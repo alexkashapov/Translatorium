@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Translatorium</string>
+    <string name="api_key">trnsl.1.1.20180905T044439Z.328eefa4083d17b8.c7db93f132fb1dce65986584762e9050381c22b9</string>
+    <string name="lang">ru</string>
+    <string name="lang_button">Choose language</string>
+    <string name="ask_hint">Word</string>
+    <string name="ans_hint">Translate</string>
+    <string name="base_url">https://translate.yandex.net/api/v1.5/tr.json/</string>
+    <string name="history">History</string>
+    <string name="translate_btn">Translate!</string>
+</resources>
