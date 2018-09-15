@@ -2,8 +2,8 @@ package com.fake.translatorium.main
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.fake.translatorium.R
 import com.fake.translatorium.main.model.Translated
 import java.util.*
@@ -28,6 +28,11 @@ class MyAdapter():RecyclerView.Adapter<TranslateViewHolder>() {
         holder.lang.setText(currentTranslate.langdir)
     }
 
+    fun addAll(history:List<Translated>){
+        translates.addAll(history)
+        notifyDataSetChanged()
+    }
+
     fun addItem(tr: Translated){
         translates.add(tr)
         notifyItemInserted(itemCount)
@@ -38,9 +43,10 @@ class MyAdapter():RecyclerView.Adapter<TranslateViewHolder>() {
         notifyItemMoved(posPrev,posNext)
     }
 
-    fun removeItem(position: Int) {
-        translates.removeAt(position)
+    fun removeItem(position: Int):Translated {
+        val tr  = translates.removeAt(position)
         notifyItemRemoved(position)
+        return tr
     }
 
 }

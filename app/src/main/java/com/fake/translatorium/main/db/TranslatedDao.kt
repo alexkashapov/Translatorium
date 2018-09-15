@@ -5,16 +5,34 @@ import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import com.fake.translatorium.main.model.Translated
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 @Dao
-interface TranslatedDao {
+abstract class TranslatedDao {
     @Query("select * from translations")
-    fun getAll(): List<Translated>
+    abstract fun all(): List<Translated>
+
+    fun allSingle(): Single<List<Translated>> {
+        return Single.fromCallable { all() }.subscribeOn(Schedulers.io())
+    }
 
     @Insert
-    fun add(translated: Translated)
+    abstract fun insert(translated: Translated)
+
+    fun addSingle(translated: Translated): Single<Translated> {
+        return Single.just(translated)
+                .observeOn(Schedulers.io())
+                .doOnSuccess(this::insert)
+    }
 
     @Delete
-    fun delete(translated: Translated)
+    abstract fun delete(translated: Translated)
+
+    fun deleteSingle(translated: Translated):Single<Translated>{
+        return Single.just(translated)
+                .observeOn(Schedulers.io())
+                .doOnSuccess{this::delete}
+    }
 
 }

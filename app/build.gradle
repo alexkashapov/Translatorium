@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -32,16 +34,21 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
     implementation "com.squareup.retrofit2:converter-jackson:$retrofitVersion"
     implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rxbinding2Version"
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbinding2Version"
+    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$rxbinding2Version"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rxbinding2Version"
 
     implementation "android.arch.persistence.room:runtime:1.1.1"
     implementation "android.arch.persistence.room:rxjava2:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
 
     implementation "io.reactivex.rxjava2:rxjava:$rxjava2Version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid2Version"
