@@ -2,6 +2,7 @@ package com.fake.translatorium.main.api
 
 import android.app.Application
 import com.fake.translatorium.main.Const
+import com.fake.translatorium.main.Presenter
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import okhttp3.OkHttpClient
@@ -26,10 +27,13 @@ class App : Application() {
                 .client(client)//Конвертер, необходимый для преобразования JSON'а в объекты
                 .build()
         api = retrofit.create<YandexService>(YandexService::class.java) //Создаем объект, при помощи которого будем выполнять запросы
+        presenter = Presenter(applicationContext)
     }
 
     companion object {
         lateinit var api: YandexService
+            private set
+        lateinit var presenter: Presenter
             private set
     }
 }

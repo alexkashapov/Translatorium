@@ -12,7 +12,7 @@
         android:name="com.fake.translatorium.main.api.App">
 
 
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".main.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

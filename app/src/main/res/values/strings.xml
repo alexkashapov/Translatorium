@@ -8,4 +8,5 @@
     <string name="base_url">https://translate.yandex.net/api/v1.5/tr.json/</string>
     <string name="history">History</string>
     <string name="translate_btn">Translate!</string>
+    <string name="clear_history">Clear History</string>
 </resources>

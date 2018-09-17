@@ -1,4 +1,4 @@
-package com.fake.translatorium.main.model
+package com.fake.translatorium.main.db
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

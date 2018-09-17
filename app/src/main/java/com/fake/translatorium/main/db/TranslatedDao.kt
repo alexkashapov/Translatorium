@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
-import com.fake.translatorium.main.model.Translated
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
@@ -32,7 +32,14 @@ abstract class TranslatedDao {
     fun deleteSingle(translated: Translated):Single<Translated>{
         return Single.just(translated)
                 .observeOn(Schedulers.io())
-                .doOnSuccess{this::delete}
+                .doOnSuccess { delete(it) }
+    }
+
+    @Query("DELETE FROM translations")
+    abstract fun clear()
+
+    fun cleardata(): Completable {
+        return Completable.fromCallable { clear() }.subscribeOn(Schedulers.io())
     }
 
 }

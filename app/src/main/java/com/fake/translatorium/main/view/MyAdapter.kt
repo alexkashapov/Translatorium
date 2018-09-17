@@ -1,15 +1,15 @@
-package com.fake.translatorium.main
+package com.fake.translatorium.main.view
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.fake.translatorium.R
-import com.fake.translatorium.main.model.Translated
+import com.fake.translatorium.main.db.Translated
 import java.util.*
 
 
-class MyAdapter():RecyclerView.Adapter<TranslateViewHolder>() {
+class MyAdapter() : RecyclerView.Adapter<TranslateViewHolder>() {
     val translates: ArrayList<Translated> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TranslateViewHolder {
         val itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.i_recview, parent, false)
@@ -28,25 +28,30 @@ class MyAdapter():RecyclerView.Adapter<TranslateViewHolder>() {
         holder.lang.setText(currentTranslate.langdir)
     }
 
-    fun addAll(history:List<Translated>){
+    fun addAll(history: List<Translated>) {
         translates.addAll(history)
         notifyDataSetChanged()
     }
 
-    fun addItem(tr: Translated){
+    fun addItem(tr: Translated) {
         translates.add(tr)
         notifyItemInserted(itemCount)
     }
 
-    fun swapItems(posPrev:Int, posNext:Int){
-        Collections.swap(translates,posPrev,posNext)
-        notifyItemMoved(posPrev,posNext)
+    fun swapItems(posPrev: Int, posNext: Int) {
+        Collections.swap(translates, posPrev, posNext)
+        notifyItemMoved(posPrev, posNext)
     }
 
-    fun removeItem(position: Int):Translated {
-        val tr  = translates.removeAt(position)
+    fun removeItem(position: Int): Translated {
+        val tr = translates.removeAt(position)
         notifyItemRemoved(position)
         return tr
+    }
+
+    fun deleteAll() {
+        translates.clear()
+        notifyDataSetChanged()
     }
 
 }

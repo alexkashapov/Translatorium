@@ -1,7 +1,7 @@
 package com.fake.translatorium.main.api
 
-import com.fake.translatorium.main.model.Langs
-import com.fake.translatorium.main.model.Translate
+import com.fake.translatorium.main.jsondata.Langs
+import com.fake.translatorium.main.jsondata.Translate
 import io.reactivex.Single
 import retrofit2.http.POST
 import retrofit2.http.Query

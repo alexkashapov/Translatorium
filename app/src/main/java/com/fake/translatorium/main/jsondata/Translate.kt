@@ -1,4 +1,4 @@
-package com.fake.translatorium.main.model
+package com.fake.translatorium.main.jsondata
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

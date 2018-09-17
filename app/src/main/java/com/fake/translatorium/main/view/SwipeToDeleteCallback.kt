@@ -1,4 +1,4 @@
-package com.fake.translatorium.main
+package com.fake.translatorium.main.view
 
 import android.content.Context
 import android.graphics.*
@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.fake.translatorium.R
 
-abstract class SwipeToDeleteCallback(context: Context): ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN,ItemTouchHelper.LEFT) {
+abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT) {
     override fun isLongPressDragEnabled(): Boolean {
         return true
     }
@@ -31,20 +31,21 @@ abstract class SwipeToDeleteCallback(context: Context): ItemTouchHelper.SimpleCa
             return
         }
 
-        if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
-        // Draw the red delete background
-        background.color = backgroundColor
-        background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
-        background.draw(c)
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            // Draw the red delete background
+            background.color = backgroundColor
+            background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+            background.draw(c)
 
-        val deleteIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
-        val deleteIconMargin = (itemHeight - intrinsicHeight) / 2
-        val deleteIconLeft = itemView.right - deleteIconMargin - intrinsicWidth
-        val deleteIconRight = itemView.right - deleteIconMargin
-        val deleteIconBottom = deleteIconTop + intrinsicHeight
+            val deleteIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
+            val deleteIconMargin = (itemHeight - intrinsicHeight) / 2
+            val deleteIconLeft = itemView.right - deleteIconMargin - intrinsicWidth
+            val deleteIconRight = itemView.right - deleteIconMargin
+            val deleteIconBottom = deleteIconTop + intrinsicHeight
 
-        deleteIcon!!.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
-        deleteIcon.draw(c)}
+            deleteIcon!!.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
+            deleteIcon.draw(c)
+        }
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
 
@@ -58,6 +59,6 @@ abstract class SwipeToDeleteCallback(context: Context): ItemTouchHelper.SimpleCa
     override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int {
         val dirsFlag = ItemTouchHelper.UP or ItemTouchHelper.DOWN
         val swipeFlag = ItemTouchHelper.LEFT
-        return makeMovementFlags(dirsFlag,swipeFlag)
+        return makeMovementFlags(dirsFlag, swipeFlag)
     }
 }

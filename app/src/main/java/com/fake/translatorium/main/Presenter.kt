@@ -2,21 +2,21 @@ package com.fake.translatorium.main
 
 import android.content.Context
 import com.fake.translatorium.main.api.App
+import com.fake.translatorium.main.db.Translated
 import com.fake.translatorium.main.db.TranslationDatabase
-import com.fake.translatorium.main.model.Translated
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class Presenter(context: Context) {
-    lateinit var lang1: String
-    lateinit var lang2: String
+    var lang1: String = ""
+    var lang2: String = ""
     lateinit var langdir: String
-    var langMap: TreeMap<String, String> =TreeMap()
+    var langMap: TreeMap<String, String> = TreeMap()
     val dao by lazy { TranslationDatabase.getInstance(context).translatedDao() }
 
-    fun all():Single<List<Translated>>{
+    fun all(): Single<List<Translated>> {
         return dao.allSingle()
     }
 
@@ -37,27 +37,33 @@ class Presenter(context: Context) {
                 .flatMap { dao.addSingle(it) }
     }
 
-    fun swapLangs():Completable{
-        lang1=lang2.also{lang2=lang1}
-        return Completable.complete()
+    fun swapLangs(): Single<Unit> {
+        return Single.fromCallable {
+            if (lang1 != "" && lang2 != "") {
+                lang1 = lang2.also { lang2 = lang1 }
+            }
+        }
     }
 
-    fun remove(tr:Translated):Single<Translated>{
+    fun remove(tr: Translated): Single<Translated> {
         return dao.deleteSingle(tr)
     }
 
-    fun langsList():Single<List<String>>{
-        if(langMap.isEmpty()){
-        return App.api
-                .listLangs(lang=Const.lang,key = Const.apiKey)
-                .subscribeOn(Schedulers.io())
-                .map {
-                    for ((key, value) in it.langs) {
-                        langMap.put(value, key)
+    fun langsList(): Single<List<String>> {
+        if (langMap.isEmpty()) {
+            return App.api
+                    .listLangs(lang = Const.lang, key = Const.apiKey)
+                    .subscribeOn(Schedulers.io())
+                    .map {
+                        for ((key, value) in it.langs) {
+                            langMap.put(value, key)
+                        }
+                        langMap.keys.toList()
                     }
-                    langMap.keys.toList()
-                }
-        }
-        else return Single.fromCallable { langMap.keys.toList()}
+        } else return Single.fromCallable { langMap.keys.toList() }
+    }
+
+    fun clearAll(): Completable {
+        return dao.cleardata()
     }
 }
