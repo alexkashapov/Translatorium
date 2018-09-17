@@ -98,6 +98,7 @@ class MainActivity : AppCompatActivity() {
         val translateButton: Button = findViewById(R.id.translateButton)
         translateButton
                 .clicks()
+                .filter { ask.text.isNotEmpty() && App.presenter.isBothLangSelected() }
                 .flatMapSingle { App.presenter.translate(ask.text.toString()) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

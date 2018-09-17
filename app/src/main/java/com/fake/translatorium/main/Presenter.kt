@@ -20,6 +20,9 @@ class Presenter(context: Context) {
         return dao.allSingle()
     }
 
+    fun isBothLangSelected(): Boolean {
+        return lang1 != "Choose language" && lang2 != "Choose language"
+    }
     fun translate(text: String): Single<Translated> {
         val lang = "${langMap.get(lang1)}-${langMap.get(lang2)}"
         langdir = "$lang1 - $lang2"
